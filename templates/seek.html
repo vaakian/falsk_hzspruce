@@ -1,0 +1,46 @@
+{% extends 'admin/master.html' %}   #为了保持一致，继承admin/master.html模板
+
+{% block body %}
+<link rel="stylesheet" href="../static/styles/reg_style.css">
+<link rel="stylesheet" href="../static/styles/bootstrap.min.css">
+<style type="text/css">
+body{
+  background-color: #E0EEE0;
+  text-align:center;
+}
+</style>
+<div class="navbar-inner">
+  {% if endtime %}
+  <h3>开户时间:</h3><p style="color:red">{{ endtime|safe }}</p>
+  {% endif %}
+  <form action="./" method="post">
+    <h2 class="col-sm-15 control-label" >WiFi套餐查询</p></h2>
+    <p><input name="username" placeholder="WiFi账号" type="text" value="{{ username }}"></p>
+    <p><input name="password" placeholder="WiFi密码" type="password"></p>
+    <p><button type="submit" class="btn btn-default">查询</button></p> 
+  </form>
+	{% for i in taocan %}
+	{{i|safe}}
+	{% endfor %}
+
+{% if hrefs %}
+{% for href,href_name in hrefs.items() %}
+<a href="{{ href }}">{{href_name}}</a>
+{% endfor %}
+{% endif %}
+
+{% if message %}
+{{ message }}
+{% endif %}
+{% if alert %}
+<script> alert("{{ alert }}");</script>
+{% endif %}
+{% if img_name %}
+<img src="{{url_for('static', filename='images/')}}{{ img_name }}"  alt="img_name" />
+{% endif %}
+<a href="http://pay.hzspruce.com/">WiFi官方自助系统</a>
+<p class="col-sm-15 control-label" style="color: #999" >Powered by: 
+ JohnKillEr <br>
+<a href="tencent://message/?uin=861729091&Site=QQ交谈&Menu=yes">QQ:861729091</a><br>
+Copyright ©2018 John </p></div>
+{% endblock %}

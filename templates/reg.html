@@ -1,0 +1,103 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+<link rel="stylesheet" href="../static/styles/reg_style.css">
+<link rel="stylesheet" href="../static/styles/bootstrap.min.css">
+<style type="text/css">
+body{
+    background-color: #E0EEE0;
+    text-align:center;
+}
+</style>
+<div class="navbar-inner">
+<h3 class="col-sm-15 control-label" >WiFi账号注册 {{ password }}</h3>
+<!-- 	<form action="./get_vcode" method="post">
+	<p><input name="phonenum" id="numB" placeholder="手机号" style="display: none;" type="text" value="{{ phonenum }}"></p>
+	<p><input name="password" id="passB" placeholder="手机号" style="display: none;" type="text" value="{{ password }}"></p>
+	<button type="submit"  class="btn btn-default">获取验证码</button>
+</form> -->
+
+    <input name="phonenum" placeholder="手机号" type="text" style="" id="phonenum"  value="{{ phonenum }}"></p>
+    <input name="vcode" style="width: 100px;" maxlength="4" id="vcode" placeholder="验证码" type="text">
+    <button onclick="get_vcode()"  class="btn btn-default">获取验证码</button></p>
+    <p><input name="password" placeholder="密码" type="text" id="password"  value="{{ password }}"></p>
+    <p><button onclick="reg()" class="btn btn-default">注册</button></p>
+
+<a href="http://pay.hzspruce.com/">WiFi官方自助系统</a>
+<p class="col-sm-15 control-label" style="color: #999" >Powered by: 
+ JohnKillEr <br>
+<a href="tencent://message/?uin=861729091&Site=QQ交谈&Menu=yes">QQ:861729091</a><br>
+Copyright ©2018 John </p>
+</div>
+    <script type="text/javascript" >
+function get_vcode(){
+
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  else
+  {
+    // IE6, IE5 浏览器执行代码
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  var phonenum = document.getElementById("phonenum").value;//手机号
+  if (phonenum)
+        if(phonenum.length==11){
+          xmlhttp.open("post","./get_vcode",false);
+          xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+          xmlhttp.send("phonenum="+phonenum);
+          var rsp = xmlhttp.responseText;
+          if (rsp=="suc"){
+            alert("已发送验证码到" + phonenum + "，10分钟内有效。");
+          }
+          else if (rsp == "alredy"){
+            alert(phonenum + "已注册，请直接登录。");
+
+          }
+          // document.getElementById("phonenum").innerHTML=xmlhttp.responseText;
+        }
+        else {
+            alert("请输入正确的手机号");
+        }
+    else {
+        alert("请输入手机号");
+    }
+}
+function reg() {
+  var phonenum = document.getElementById("phonenum").value;
+  var password = document.getElementById("password").value;
+  var vcode = document.getElementById("vcode").value;
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  else
+  {
+    // IE6, IE5 浏览器执行代码
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  if(phonenum && password && vcode){
+    xmlhttp.open("post","./",false);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("phonenum=" + phonenum + "&password=" + password + "&vcode=" + vcode );
+    var rsp = xmlhttp.responseText;
+    if (rsp =='suc')
+      alert(phonenum + "注册成功！");
+    else {
+      if(phonenum.length=='11')
+      alert(phonenum + "验证码错误！");
+      else
+      alert(phonenum + "注册失败！");
+    }
+    }
+    else
+      alert("请正确填写信息！");
+  // body...
+}
+    </script>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "admin/master.html" %}
+{% block body %}
+<link rel="stylesheet" href="../static/styles/reg_style.css">
+<link rel="stylesheet" href="../static/styles/bootstrap.min.css">
+<style type="text/css">
+body{
+    background-color: #E0EEE0;
+    text-align:center;
+}
+</style>
+<div class="navbar-inner">
+<h3 class="col-sm-15 control-label" >后台账号注册 {{ password }}</h3>
+<!-- 	<form action="./get_vcode" method="post">
+	<p><input name="phonenum" id="numB" placeholder="手机号" style="display: none;" type="text" value="{{ phonenum }}"></p>
+	<p><input name="password" id="passB" placeholder="手机号" style="display: none;" type="text" value="{{ password }}"></p>
+	<button type="submit"  class="btn btn-default">获取验证码</button>
+</form> -->
+
+    <input name="username" placeholder="账号" type="text" style="" id="username"  value="{{ phonenum }}"></p>
+    <p><input name="password" placeholder="密码" type="text" id="password"  value="{{ password }}"></p>
+    <p><button onclick="reg_john()" class="btn btn-default">注册</button></p>
+    <h3 style="color: red" id="message"></h3>
+<a href="http://pay.hzspruce.com/">WiFi官方自助系统</a>
+<p class="col-sm-15 control-label" style="color: #999" >Powered by: 
+ JohnKillEr <br>
+<a href="tencent://message/?uin=861729091&Site=QQ交谈&Menu=yes">QQ:861729091</a><br>
+Copyright ©2018 John </p>
+</div>
+    <script type="text/javascript" >
+function reg_john(){
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  else
+  {
+    // IE6, IE5 浏览器执行代码
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  var username = document.getElementById("username").value;//手机号
+  var password = document.getElementById("password").value;
+  xmlhttp.open("post","./",false);
+  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp.send("username="+username + "&password=" + password);
+  var message = "";
+  var rsp = xmlhttp.responseText;
+  if(rsp == "suc")
+    message = "注册成功！";
+  else if(rsp == "erruser")
+    message = "仅管理员可执行此操作。";
+    else
+      message = "注册失败！";
+  document.getElementById("message").innerHTML = message;
+  }
+    </script>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'admin/master.html' %} 
+{% block body %}
+<link rel="stylesheet" href="../static/styles/reg_style.css">
+<link rel="stylesheet" href="../static/styles/bootstrap.min.css">
+<style type="text/css">
+body{
+	background-color: #E0EEE0;
+ 	text-align:center;
+}
+</style>
+<div class="navbar-inner">
+<h2 class="container title1" style="font-size: 35px;color: #777;" >WiFi管理系统</h2>
+<a href="/logout">登出</a>
+<a href="http://pay.hzspruce.com/">WiFi官方自助系统</a>
+{% if not message %}
+	<form action="../login" method="POST">
+	<input type="text" name="username" > </input>
+	<input type="text" name="password" > </input>
+	<button type="submit">登录</button>
+	</form>
+{% endif %}
+<p class="col-sm-15 control-label" style="color: #999" >Powered by: 
+ JohnKillEr <br>
+<a href="tencent://message/?uin=861729091&Site=QQ交谈&Menu=yes">QQ:861729091</a><br>
+Copyright ©2018 John </p>
+<!--img src="{{url_for('static', filename='images/bg2.png')}}"  alt="img_name" /-->
+  {% if message %}
+	{{message}}
+
+{% endif %}
+<script type="text/javascript"></script>
+</div>
+{% endblock %}

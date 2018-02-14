@@ -1,0 +1,37 @@
+{% extends 'admin/master.html' %} 
+{% block body %}
+<link rel="stylesheet" href="../static/styles/reg_style.css">
+<link rel="stylesheet" href="../static/styles/bootstrap.min.css">
+<style type="text/css">
+body{
+	background-color: #E0EEE0;
+ 	text-align:center;
+}
+</style>
+<div class="navbar-inner">
+<h2 class="container title1" style="font-size: 35px;color: #777;" >修改密码</h2>
+<form action="./" method="POST">
+		<input type="text" name="username" readonly="True" placeholder="用户名" value="{{session['username']}}"></input><p>
+		<input type="text" name="password" placeholder="原密码"></input><p>
+		<input type="text" name="to_password" placeholder="新密码" =""></input><p>
+			<button class="btn btn-default" type="submit">修改</button>
+</form>
+  {% if message %}
+	<h3 style="color: red">{{message}}</h3>
+{% endif %}
+<a href="http://pay.hzspruce.com/">WiFi官方自助系统</a>
+{% if not message %}
+
+{% endif %}
+<p class="col-sm-15 control-label" style="color: #999" >Powered by: 
+ JohnKillEr <br>
+<a href="tencent://message/?uin=861729091&Site=QQ交谈&Menu=yes">QQ:861729091</a><br>
+Copyright ©2018 John </p>
+<!--img src="{{url_for('static', filename='images/bg2.png')}}"  alt="img_name" /-->
+  {% if message %}
+	{{message}}
+
+{% endif %}
+<script type="text/javascript"></script>
+</div>
+{% endblock %}

@@ -1,0 +1,2 @@
+git pull --rebase origin master
+注意：修改项目名将导致项目的访问 URL（包含 Git 仓库的 URL）将会改变，在此之前的 URL 地址将失效。Git 仓库地址修改办法 git remote set-url origin [NEW_URL]

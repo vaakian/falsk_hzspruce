@@ -1,0 +1,84 @@
+{% extends 'admin/master.html' %}   #为了保持一致，继承admin/master.html模板
+
+{% block body %}
+<link rel="stylesheet" href="../static/styles/reg_style.css">
+<link rel="stylesheet" href="../static/styles/bootstrap.min.css">
+<style type="text/css">
+body{
+  background-color: #E0EEE0;
+  text-align:center;
+}
+</style>
+<div class="navbar-inner">
+  {% if endtime %}
+  <h3>套餐结束时间:</h3><p style="color:red">{{ endtime | safe }}</p>
+  {% endif %}
+    <h3 class="col-sm-15 control-label" >WiFi充值</h3>
+    <p><input id="username" placeholder="WiFi账号" type="text"></p>
+    <!--p><input name="productID" placeholder="ProductID" type="text"></p-->
+    <select class="form-control" id="productID">
+          <option value="">请选择充值天数</option>
+          <option value="8">10天</option>
+          <option value="18">30天</option>
+          <option value="19">365天</option>
+          </select>
+    <p><button onclick="recharge()" class="btn btn-default">充值</button></p>
+<span id="message" style="color:red"></span><br />
+	{% for i in taocan %}
+	{{i|safe}}
+	{% endfor %}
+
+{% if hrefs %}
+{% for href,href_name in hrefs.items() %}
+<a href="{{ href }}">{{href_name}}</a>
+{% endfor %}
+{% endif %}
+
+{% if message %}
+<p style="color:red">{{ message }}</p>
+{% endif %}
+<script type="text/javascript">
+function recharge() {
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  else
+  {
+    // IE6, IE5 浏览器执行代码
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  username = document.getElementById("username").value;
+  productID = document.getElementById("productID").value;
+  xmlhttp.open("POST",'./',false)
+  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp.send("username=" + username + "&productID=" + productID);
+  var rsp = xmlhttp.responseText;
+  if(rsp=='suc')
+    rsp = username + "充值成功！";
+  else if(username=='')
+    rsp ="请输入账号！";
+  else if(productID=='')
+    rsp = "请选择套餐！";
+  else if(rsp == 'chanceerr')
+    rsp = "用户：" +{{session_user}} + "\n剩余充值次数不足，请联系管理员！";
+  else
+    rsp = rsp
+  document.getElementById("message").innerHTML = rsp;
+  alert(rsp)
+
+  // body...
+}
+</script>
+{% if img_name %}
+<img src="{{url_for('static', filename='images/')}}{{ img_name }}"  alt="img_name" />
+{% endif %}
+<a href="http://pay.hzspruce.com/">WiFi官方自助系统</a>
+<p class="col-sm-15 control-label" style="color: #999" >Powered by: 
+ JohnKillEr <br>
+<a href="tencent://message/?uin=861729091&Site=QQ交谈&Menu=yes">QQ:861729091</a><br>
+Copyright ©2018 John </p>
+</div>
+{% endblock %}

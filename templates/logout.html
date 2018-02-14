@@ -1,0 +1,11 @@
+<form action="../login" method="POST">
+<input type="text" name="username" > </input>
+<input type="text" name="	password" > </input>
+<button type="submit">登录</button>
+</form>
+{% if logout %}
+<script type="text/javascript"> alert("退出成功！");window.location.href="/login";</script>
+{% endif %}
+{% if notlog %}
+<script type="text/javascript"> alert("未登录！");window.location.href="/login";</script>
+{% endif %}
